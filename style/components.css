@@ -92,3 +92,20 @@
   font-size: 1.1rem;
   margin-bottom: 18px;
 }
+
+/* mensagem abaixo do botão */
+.message-box {
+  margin-top: 14px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* quando der certo */
+.message-box.success {
+  color: #2e7d32;
+}
+
+/* quando faltar alguma coisa */
+.message-box.error {
+  color: #d32f2f;
+}
