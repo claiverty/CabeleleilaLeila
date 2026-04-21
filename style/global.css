@@ -1,0 +1,191 @@
+/* =====================
+   CORES E AJUSTES GERAIS
+   deixei as cores e medidas principais aqui
+   pra facilitar mudanças depois
+===================== */
+:root {
+  --color-primary: #e91e63;
+  --color-primary-dark: #c2185b;
+  --color-primary-soft: #fce4ec;
+  --color-bg: #fff7fb;
+  --color-surface: #ffffff;
+  --color-text: #413640;
+  --color-text-light: #7b6d79;
+  --color-border: #f1d4df;
+  --color-white: #ffffff;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+
+  --shadow-sm: 0 8px 20px rgba(233, 30, 99, 0.08);
+  --shadow-md: 0 16px 32px rgba(233, 30, 99, 0.12);
+
+  --container-width: 1120px;
+  --transition: 0.25s ease;
+}
+
+/* reset básico pra evitar diferença de espaçamento */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* deixa a navegação entre seções mais suave */
+html {
+  scroll-behavior: smooth;
+}
+
+/* estilo geral da página */
+body {
+  font-family: "Poppins", sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* tira o sublinhado padrão dos links */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* mantém a mesma fonte nos campos e botões */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/* evita imagem quebrando layout */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* centraliza o conteúdo */
+.container {
+  width: min(var(--container-width), 90%);
+  margin: 0 auto;
+}
+
+/* espaçamento padrão das seções */
+.section {
+  padding: 72px 0;
+}
+
+/* header fixo no topo */
+.header {
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(241, 212, 223, 0.8);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+}
+
+/* conteúdo interno do header */
+.header__content {
+  min-height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* nome principal do salão */
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  letter-spacing: 0.5px;
+}
+
+/* texto menor abaixo da logo */
+.logo-subtitle {
+  font-size: 0.78rem;
+  color: var(--color-text-light);
+  margin-top: 4px;
+}
+
+/* deixa a logo clicável sem bagunçar layout */
+.logo-link {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+/* efeito leve ao passar o mouse */
+.logo-link:hover {
+  opacity: 0.8;
+}
+
+/* topo das seções */
+.section-header,
+.page-top {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* tag de destaque */
+.section-tag,
+.tag {
+  display: inline-block;
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+/* títulos principais */
+.section-title,
+.hero__title {
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+
+/* textos de apoio */
+.section-description,
+.hero__description {
+  color: var(--color-text-light);
+  max-width: 620px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* rodapé */
+.footer {
+  border-top: 1px solid rgba(241, 212, 223, 0.8);
+  padding: 24px 0;
+  text-align: center;
+  color: var(--color-text-light);
+  background: #fff;
+}
+
+/* =====================
+   RESPONSIVIDADE GLOBAL
+===================== */
+
+/* ajustes gerais pra celular */
+@media (max-width: 768px) {
+  .section {
+    padding: 56px 0;
+  }
+
+  .header__content {
+    min-height: 70px;
+  }
+
+  .logo {
+    font-size: 1.1rem;
+  }
+
+  .logo-subtitle {
+    font-size: 0.72rem;
+  }
+}

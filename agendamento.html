@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agendar horário - Cabeleleila Leila</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="./style/global.css" />
+  <link rel="stylesheet" href="./style/components.css" />
+  <link rel="stylesheet" href="./style/pages/agendamento.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container header__content">
+      <a href="./index.html" class="logo-link">
+        <h1 class="logo">Cabeleleila Leila</h1>
+        <p class="logo-subtitle">Salão de Beleza</p>
+      </a>
+
+      <a href="./index.html" class="btn btn-outline">Voltar</a>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <div class="page-top">
+        <span class="section-tag">Agendamento online</span>
+        <h2 class="section-title">Reserve seu horário</h2>
+        <p class="section-description">
+          Escolha os serviços, selecione a data e informe seus dados para concluir.
+        </p>
+      </div>
+
+      <div class="booking-layout">
+        <section class="booking-main card">
+          <div class="step-block">
+            <h3 class="block-title">1. Escolha os serviços</h3>
+
+            <div class="services-list">
+              <label class="select-card">
+                <input type="checkbox" name="servico" value="Corte Feminino" />
+                <div>
+                  <h4>Corte Feminino</h4>
+                  <p>R$ 70,00 • 60 min</p>
+                </div>
+              </label>
+
+              <label class="select-card">
+                <input type="checkbox" name="servico" value="Escova" />
+                <div>
+                  <h4>Escova</h4>
+                  <p>R$ 45,00 • 40 min</p>
+                </div>
+              </label>
+
+              <label class="select-card">
+                <input type="checkbox" name="servico" value="Manicure" />
+                <div>
+                  <h4>Manicure</h4>
+                  <p>R$ 35,00 • 45 min</p>
+                </div>
+              </label>
+
+              <label class="select-card">
+                <input type="checkbox" name="servico" value="Hidratação" />
+                <div>
+                  <h4>Hidratação</h4>
+                  <p>R$ 60,00 • 50 min</p>
+                </div>
+              </label>
+
+              <label class="select-card">
+                <input type="checkbox" name="servico" value="Design de Sobrancelha" />
+                <div>
+                  <h4>Design de Sobrancelha</h4>
+                  <p>R$ 30,00 • 30 min</p>
+                </div>
+              </label>
+
+              <label class="select-card">
+                <input type="checkbox" name="servico" value="Lash Design" />
+                <div>
+                  <h4>Lash Design</h4>
+                  <p>R$ 90,00 • 90 min</p>
+                </div>
+              </label>
+
+              <label class="select-card">
+                <input type="checkbox" name="servico" value="Unha de Gel" />
+                <div>
+                  <h4>Unha de Gel</h4>
+                  <p>R$ 120,00 • 120 min</p>
+                </div>
+              </label>
+
+              <label class="select-card">
+                <input type="checkbox" name="servico" value="Progressiva" />
+                <div>
+                  <h4>Progressiva</h4>
+                  <p>R$ 150,00 • 180 min</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="step-block">
+            <h3 class="block-title">2. Escolha a data</h3>
+            <input type="date" class="input" />
+          </div>
+
+          <div class="step-block">
+            <h3 class="block-title">3. Escolha o horário</h3>
+
+            <div class="hours-grid">
+              <button class="hour-btn" type="button">09:00</button>
+              <button class="hour-btn" type="button">10:00</button>
+              <button class="hour-btn" type="button">11:00</button>
+              <button class="hour-btn" type="button">13:00</button>
+              <button class="hour-btn" type="button">14:00</button>
+              <button class="hour-btn" type="button">15:00</button>
+              <button class="hour-btn" type="button">16:00</button>
+              <button class="hour-btn" type="button">17:00</button>
+            </div>
+          </div>
+
+          <div class="step-block">
+            <h3 class="block-title">4. Seus dados</h3>
+
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="nome">Nome</label>
+                <input
+                  id="nome"
+                  type="text"
+                  class="input"
+                  placeholder="Digite seu nome"
+                />
+              </div>
+
+              <div class="form-group">
+                <label for="telefone">Telefone</label>
+                <input
+                  id="telefone"
+                  type="text"
+                  class="input"
+                  placeholder="(00) 00000-0000"
+                />
+              </div>
+
+              <div class="form-group form-group--full">
+                <label for="email">E-mail</label>
+                <input
+                  id="email"
+                  type="email"
+                  class="input"
+                  placeholder="Digite seu e-mail"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="booking-summary card">
+          <h3 class="block-title">Resumo</h3>
+
+          <div class="summary-box">
+            <p><strong>Serviços:</strong> Nenhum selecionado</p>
+            <p><strong>Data:</strong> Não escolhida</p>
+            <p><strong>Horário:</strong> Não escolhido</p>
+          </div>
+
+          <button class="btn btn-primary btn-full" type="button">
+            Confirmar agendamento
+          </button>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <script src="./script/main.js"></script>
+</body>
+</html>

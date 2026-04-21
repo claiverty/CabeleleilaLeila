@@ -1,0 +1,124 @@
+/* layout principal da página de agendamento */
+.booking-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* separação visual entre as etapas */
+.step-block + .step-block {
+  margin-top: 28px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(241, 212, 223, 0.8);
+}
+
+/* lista de serviços */
+.services-list {
+  display: grid;
+  gap: 14px;
+}
+
+/* card clicável de cada serviço */
+.select-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+/* efeito quando passa o mouse */
+.select-card:hover {
+  border-color: var(--color-primary);
+  background: #fffafd;
+}
+
+/* cor do checkbox */
+.select-card input {
+  margin-top: 4px;
+  accent-color: var(--color-primary);
+}
+
+/* nome do serviço */
+.select-card h4 {
+  margin-bottom: 4px;
+}
+
+/* preço e duração */
+.select-card p {
+  color: var(--color-text-light);
+}
+
+/* grade dos horários */
+.hours-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+/* botão de horário */
+.hour-btn {
+  border: 1px solid var(--color-primary);
+  background: transparent;
+  color: var(--color-primary-dark);
+  border-radius: 14px;
+  padding: 12px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+/* marca o horário escolhido */
+.hour-btn.is-selected,
+.hour-btn:hover {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+/* organização dos campos do formulário */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* campo que ocupa a linha inteira */
+.form-group--full {
+  grid-column: 1 / -1;
+}
+
+/* caixa do resumo */
+.summary-box {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 24px;
+  color: var(--color-text-light);
+}
+
+/* responvididade */
+
+/* joga conteúdo em uma coluna quando é uma tela menor */
+@media (max-width: 992px) {
+  .booking-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ajuste pra tablet */
+@media (max-width: 768px) {
+  .hours-grid,
+  .form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ajuste pra celular */
+@media (max-width: 540px) {
+  .hours-grid,
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}

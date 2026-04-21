@@ -1,0 +1,94 @@
+/* botão base usado no projeto todo */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 22px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+/* leve efeito ao passar o mouse */
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+/* botão principal */
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-white);
+  box-shadow: var(--shadow-sm);
+}
+
+/* escurece um pouco no hover */
+.btn-primary:hover {
+  background: var(--color-primary-dark);
+}
+
+/* botão claro */
+.btn-light {
+  background: var(--color-white);
+  color: var(--color-primary-dark);
+  border: 1px solid var(--color-border);
+}
+
+/* botão só com contorno */
+.btn-outline {
+  background: transparent;
+  color: var(--color-primary-dark);
+  border: 1px solid var(--color-primary-dark);
+}
+
+/* botão ocupando toda largura */
+.btn-full {
+  width: 100%;
+}
+
+/* card padrão do sistema */
+.card {
+  background: var(--color-surface);
+  border: 1px solid rgba(241, 212, 223, 0.8);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 28px;
+}
+
+/* campo padrão */
+.input {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  background: #fff;
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  outline: none;
+  transition: var(--transition);
+}
+
+/* destaque quando o campo está ativo */
+.input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(233, 30, 99, 0.1);
+}
+
+/* grupo de label + input */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* estilo do texto do label */
+.form-group label {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+/* título usado em blocos internos */
+.block-title {
+  font-size: 1.1rem;
+  margin-bottom: 18px;
+}
