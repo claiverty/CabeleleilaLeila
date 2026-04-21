@@ -167,11 +167,9 @@ img {
   background: #fff;
 }
 
-/* =====================
-   RESPONSIVIDADE GLOBAL
-===================== */
+/* responsividade*/
 
-/* ajustes gerais pra celular */
+/* ajustes pra celular */
 @media (max-width: 768px) {
   .section {
     padding: 56px 0;
