@@ -135,12 +135,11 @@ function mostrarMensagem(texto, tipo) {
 // confirmar
 
 if (botaoConfirmar) {
-  botaoConfirmar.addEventListener('click', () => {
+  botaoConfirmar.addEventListener('click', async () => {
     const valido = validarFormulario();
 
     if (!valido) return;
 
-    // guarda os dados antes de limpar
     const dadosAgendamento = {
       servicos: estado.servicos,
       data: estado.data,
@@ -150,11 +149,18 @@ if (botaoConfirmar) {
       email: inputEmail.value.trim()
     };
 
+    const salvou = await salvarNoBanco(dadosAgendamento);
+
+    if (!salvou) {
+      mostrarMensagem('Erro ao salvar agendamento.', 'error');
+      return;
+    }
+
     mostrarMensagem('Agendamento confirmado com sucesso!', 'success');
 
     console.log('Agendamento:', dadosAgendamento);
 
-    // limpa formulário depois de confirmar
+    // limpa formulário
     inputNome.value = '';
     inputTelefone.value = '';
     inputEmail.value = '';
@@ -163,16 +169,10 @@ if (botaoConfirmar) {
     estado.horario = null;
     estado.data = null;
 
-    // desmarca checkboxes
     servicosInputs.forEach(el => el.checked = false);
-
-    // remove seleção de horário
     botoesHorario.forEach(b => b.classList.remove('is-selected'));
-
-    // limpa data
     inputData.value = '';
 
     atualizarResumo();
   });
 }
-
