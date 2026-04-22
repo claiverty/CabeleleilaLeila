@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Histórico - Cabeleleila Leila</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="./style/global.css" />
+  <link rel="stylesheet" href="./style/components.css" />
+  <link rel="stylesheet" href="./style/pages/historico.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container header__content">
+      <a href="./index.html" class="logo-link">
+        <h1 class="logo">Cabeleleila Leila</h1>
+        <p class="logo-subtitle">Salão de Beleza</p>
+      </a>
+      
+      <div class="header__actions">
+        <a href="./agendamento.html" class="btn btn-light">Agendar</a>
+        <a href="./index.html" class="btn btn-outline">Voltar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <div class="page-top">
+        <span class="section-tag">Histórico</span>
+        <h2 class="section-title">Agendamentos realizados</h2>
+        <p class="section-description">
+          Veja os agendamentos cadastrados e os detalhes de cada atendimento.
+        </p>
+      </div>
+
+      <section class="card">
+        <div class="historico-top">
+          <h3 class="block-title">Lista de agendamentos</h3>
+          <p id="historico-mensagem" class="message-box"></p>
+        </div>
+
+        <div id="historico-lista" class="historico-lista">
+          <p>Carregando agendamentos...</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./script/supabase.js"></script>
+  <script src="./script/historico.js"></script>
+</body>
+</html>

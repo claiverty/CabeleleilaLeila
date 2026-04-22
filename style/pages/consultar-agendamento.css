@@ -1,0 +1,72 @@
+/* layout principal da página */
+.consulta-layout {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* lista de resultados */
+.consulta-lista {
+  display: grid;
+  gap: 16px;
+}
+
+/* card de cada agendamento */
+.consulta-card {
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  padding: 18px;
+  background: #fff;
+}
+
+/* topo do card */
+.consulta-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+/* título do card */
+.consulta-card__top h4 {
+  color: var(--color-primary-dark);
+  font-size: 1.05rem;
+}
+
+/* lista dos serviços */
+.consulta-servicos {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border);
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+#btn-consultar {
+  margin-top: 8px;
+}
+
+/* badge de status */
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+}
+
+/* responsividade */
+@media (max-width: 900px) {
+  .consulta-layout {
+    grid-template-columns: 1fr;
+  }
+}

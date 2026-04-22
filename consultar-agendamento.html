@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consultar agendamento - Cabeleleila Leila</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="./style/global.css" />
+  <link rel="stylesheet" href="./style/components.css" />
+  <link rel="stylesheet" href="./style/pages/consultar-agendamento.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container header__content">
+      <a href="./index.html" class="logo-link">
+        <h1 class="logo">Cabeleleila Leila</h1>
+        <p class="logo-subtitle">Salão de Beleza</p>
+      </a>
+
+      <div class="header__actions">
+        <a href="./agendamento.html" class="btn btn-light">Agendar</a>
+        <a href="./index.html" class="btn btn-outline">Voltar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <div class="page-top">
+        <span class="section-tag">Consulta</span>
+        <h2 class="section-title">Consultar agendamento</h2>
+        <p class="section-description">
+          Informe seu e-mail para visualizar os seus agendamentos.
+        </p>
+      </div>
+
+      <section class="consulta-layout">
+        <div class="card">
+          <h3 class="block-title">Buscar por e-mail</h3>
+
+          <div class="form-group">
+            <label for="consulta-email">E-mail</label>
+            <input
+              id="consulta-email"
+              type="email"
+              class="input"
+              placeholder="Digite o e-mail usado no agendamento"
+            />
+          </div>
+
+          <button id="btn-consultar" class="btn btn-primary btn-full" type="button">
+            Consultar
+          </button>
+
+          <p id="mensagem-consulta" class="message-box"></p>
+        </div>
+
+        <div class="card">
+          <h3 class="block-title">Seus agendamentos</h3>
+
+          <div id="consulta-lista" class="consulta-lista">
+            <p>Digite seu e-mail para consultar.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./script/supabase.js"></script>
+  <script src="./script/consultar-agendamento.js"></script>
+</body>
+</html>

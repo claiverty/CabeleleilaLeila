@@ -17,7 +17,6 @@ const inputEmail = document.querySelector('#email');
 
 
 // serviços
-
 const servicosInputs = document.querySelectorAll('input[name="servico"]');
 
 servicosInputs.forEach(input => {
@@ -32,7 +31,6 @@ servicosInputs.forEach(input => {
 
 
 // horários
-
 const botoesHorario = document.querySelectorAll('.hour-btn');
 
 botoesHorario.forEach(btn => {
@@ -49,7 +47,6 @@ botoesHorario.forEach(btn => {
 
 
 // data
-
 const inputData = document.querySelector('input[type="date"]');
 
 if (inputData) {
@@ -62,7 +59,6 @@ if (inputData) {
 
 
 // resumo
-
 function atualizarResumo() {
   if (!resumo) return;
 
@@ -81,7 +77,6 @@ function atualizarResumo() {
 
 
 // validar
-
 function validarFormulario() {
   const nome = inputNome.value.trim();
   const telefone = inputTelefone.value.trim();
@@ -122,7 +117,6 @@ function validarFormulario() {
 
 
 // mensagem
-
 function mostrarMensagem(texto, tipo) {
   if (!mensagem) return;
 
@@ -133,7 +127,6 @@ function mostrarMensagem(texto, tipo) {
 
 
 // confirmar
-
 if (botaoConfirmar) {
   botaoConfirmar.addEventListener('click', async () => {
     const valido = validarFormulario();

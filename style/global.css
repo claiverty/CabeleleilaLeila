@@ -94,6 +94,13 @@ img {
   gap: 16px;
 }
 
+/* agrupa os botões do header */
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 /* nome principal do salão */
 .logo {
   font-size: 1.4rem;
