@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - Cabeleleila Leila</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="./style/global.css" />
+  <link rel="stylesheet" href="./style/components.css" />
+  <link rel="stylesheet" href="./style/pages/dashboard.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container header__content">
+      <a href="./index.html" class="logo-link">
+        <h1 class="logo">Cabeleleila Leila</h1>
+        <p class="logo-subtitle">Salão de Beleza</p>
+      </a>
+
+      <div class="header__actions">
+        <a href="./historico.html" class="btn btn-light">Histórico</a>
+        <button id="btn-logout" class="btn btn-outline">Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container">
+      <div class="page-top">
+        <span class="section-tag">Operacional</span>
+        <h2 class="section-title">Dashboard de agendamentos</h2>
+        <p class="section-description">
+          Acompanhe os agendamentos e atualize o status dos atendimentos.
+        </p>
+      </div>
+
+      <section class="dashboard-cards">
+        <article class="card dashboard-card">
+          <p>Total na semana</p>
+          <h3 id="total-agendamentos">0</h3>
+        </article>
+
+        <article class="card dashboard-card">
+          <p>Pendentes</p>
+          <h3 id="total-pendentes">0</h3>
+        </article>
+
+        <article class="card dashboard-card">
+          <p>Confirmados</p>
+          <h3 id="total-confirmados">0</h3>
+        </article>
+
+        <article class="card dashboard-card">
+          <p>Concluídos</p>
+          <h3 id="total-concluidos">0</h3>
+        </article>
+
+        <article class="card dashboard-card">
+          <p>Cancelados</p>
+          <h3 id="total-cancelados">0</h3>
+        </article>
+      </section>
+
+      <section class="card">
+        <div class="dashboard-top">
+          <h3 class="block-title">Lista de agendamentos</h3>
+          <p id="dashboard-mensagem" class="message-box"></p>
+        </div>
+
+        <div id="dashboard-lista" class="dashboard-lista">
+          <p>Carregando agendamentos...</p>
+        </div>
+      </section>
+
+      <section class="card dashboard-extra">
+        <h3 class="block-title">Serviços mais agendados na semana</h3>
+        <div id="ranking-servicos" class="ranking-servicos">
+          <p>Carregando ranking...</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./script/supabase.js"></script>
+  <script src="./script/dashboard.js"></script>
+</body>
+</html>

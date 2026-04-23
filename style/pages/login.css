@@ -1,0 +1,31 @@
+/* tela inteira centralizada */
+.login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+/* card do login */
+.login-card {
+  width: min(420px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* título do login */
+.login-card .block-title {
+  margin-bottom: 4px;
+}
+
+/* deixa os campos mais juntos */
+.login-card .form-group {
+  gap: 6px;
+}
+
+/* mensagem abaixo do botão */
+.login-card .message-box {
+  margin-top: 0;
+}

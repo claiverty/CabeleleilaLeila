@@ -1,0 +1,131 @@
+/* cards do topo */
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* card do resumo */
+.dashboard-card {
+  text-align: center;
+}
+
+.dashboard-card p {
+  color: var(--color-text-light);
+  margin-bottom: 10px;
+}
+
+.dashboard-card h3 {
+  font-size: 2rem;
+  color: var(--color-primary-dark);
+}
+
+/* lista de agendamentos */
+.dashboard-lista {
+  display: grid;
+  gap: 16px;
+}
+
+/* card de agendamento */
+.dashboard-item {
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  padding: 20px;
+  background: #fff;
+}
+
+/* topo do card */
+.dashboard-item__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.dashboard-item__top h4 {
+  color: var(--color-primary-dark);
+  font-size: 1.05rem;
+}
+
+.dashboard-item p {
+  color: var(--color-text-light);
+  line-height: 1.6;
+}
+
+/* botões de ação */
+.dashboard-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+/* bloco extra com ranking */
+.dashboard-extra {
+  margin-bottom: 24px;
+}
+
+/* lista do ranking */
+.ranking-servicos {
+  display: grid;
+  gap: 12px;
+}
+
+/* item do ranking */
+.ranking-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: #fff;
+}
+
+/* nome do serviço */
+.ranking-item strong {
+  color: var(--color-primary-dark);
+}
+
+/* botão menor */
+.btn-sm {
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: 0.92rem;
+}
+
+/* badge de status */
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+}
+
+.historico-servicos {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border);
+  display: grid;
+  gap: 8px;
+}
+
+/* responsividade */
+@media (max-width: 900px) {
+  .dashboard-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+}

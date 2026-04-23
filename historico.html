@@ -23,9 +23,9 @@
         <h1 class="logo">Cabeleleila Leila</h1>
         <p class="logo-subtitle">Salão de Beleza</p>
       </a>
-      
+
       <div class="header__actions">
-        <a href="./agendamento.html" class="btn btn-light">Agendar</a>
+        <a href="./dashboard.html" class="btn btn-light">Dashboard</a>
         <a href="./index.html" class="btn btn-outline">Voltar</a>
       </div>
     </div>
@@ -35,17 +35,42 @@
     <div class="container">
       <div class="page-top">
         <span class="section-tag">Histórico</span>
-        <h2 class="section-title">Agendamentos realizados</h2>
+        <h2 class="section-title">Histórico de agendamentos</h2>
         <p class="section-description">
-          Veja os agendamentos cadastrados e os detalhes de cada atendimento.
+          Consulte, filtre e edite os agendamentos quando permitido.
         </p>
       </div>
 
-      <section class="card">
-        <div class="historico-top">
-          <h3 class="block-title">Lista de agendamentos</h3>
-          <p id="historico-mensagem" class="message-box"></p>
+      <section class="card historico-filtros">
+        <h3 class="block-title">Filtrar por período</h3>
+
+        <div class="historico-filtros__grid">
+          <div class="form-group">
+            <label for="filtro-data-inicial">Data inicial</label>
+            <input id="filtro-data-inicial" type="date" class="input" />
+          </div>
+
+          <div class="form-group">
+            <label for="filtro-data-final">Data final</label>
+            <input id="filtro-data-final" type="date" class="input" />
+          </div>
         </div>
+
+        <div class="historico-filtros__actions">
+          <button id="btn-filtrar-historico" class="btn btn-primary" type="button">
+            Filtrar
+          </button>
+
+          <button id="btn-limpar-filtro" class="btn btn-light" type="button">
+            Limpar filtro
+          </button>
+        </div>
+
+        <p id="historico-mensagem" class="message-box"></p>
+      </section>
+
+      <section class="card">
+        <h3 class="block-title">Lista de agendamentos</h3>
 
         <div id="historico-lista" class="historico-lista">
           <p>Carregando agendamentos...</p>
@@ -53,6 +78,47 @@
       </section>
     </div>
   </main>
+
+  <div id="modal-editar" class="modal hidden">
+    <div class="modal__overlay"></div>
+
+    <div class="modal__content card">
+      <div class="modal__top">
+        <h3 class="block-title">Editar agendamento</h3>
+        <button id="btn-fechar-modal" class="btn btn-outline btn-sm" type="button">
+          Fechar
+        </button>
+      </div>
+
+      <div class="form-group">
+        <label for="editar-data">Data</label>
+        <input id="editar-data" type="date" class="input" />
+      </div>
+
+      <div class="form-group">
+        <label for="editar-horario">Horário</label>
+        <input id="editar-horario" type="text" class="input" placeholder="Ex: 14:00" />
+      </div>
+
+      <div class="form-group">
+        <label for="editar-status">Status</label>
+        <select id="editar-status" class="input">
+          <option value="pendente">Pendente</option>
+          <option value="confirmado">Confirmado</option>
+          <option value="cancelado">Cancelado</option>
+          <option value="concluido">Concluído</option>
+        </select>
+      </div>
+
+      <div class="modal__actions">
+        <button id="btn-salvar-edicao" class="btn btn-primary" type="button">
+          Salvar alterações
+        </button>
+      </div>
+
+      <p id="mensagem-edicao" class="message-box"></p>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="./script/supabase.js"></script>

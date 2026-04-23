@@ -109,3 +109,24 @@
 .message-box.error {
   color: #d32f2f;
 }
+
+/* botão de ícone no header */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+}
+
+/* efeito ao passar o mouse */
+.icon-btn:hover {
+  transform: scale(1.05);
+  opacity: 0.85;
+}
+
+/* controla o tamanho do svg */
+.icon-btn svg {
+  width: 35px;
+  height: 35px;
+}

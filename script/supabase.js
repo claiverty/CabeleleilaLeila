@@ -225,8 +225,306 @@ async function buscarAgendamentosPorEmail(email) {
 }
 
 
-// deixa disponível nos outros arquivos
+// buscar agendamentos com cliente
+async function buscarAgendamentosDashboard() {
+  const { data, error } = await supabaseClient
+    .from('agendamentos')
+    .select(`
+      id,
+      data,
+      horario,
+      status,
+      observacoes,
+      created_at,
+      clientes (
+        nome,
+        telefone,
+        email
+      )
+    `)
+    .order('data', { ascending: true });
+
+  if (error) {
+    console.error('Erro ao buscar agendamentos do dashboard:', error);
+    return [];
+  }
+
+  return data;
+}
+
+
+// atualizar status do agendamento
+async function atualizarStatusAgendamento(agendamentoId, novoStatus) {
+  const { error } = await supabaseClient
+    .from('agendamentos')
+    .update({ status: novoStatus })
+    .eq('id', agendamentoId);
+
+  if (error) {
+    console.error('Erro ao atualizar status do agendamento:', error);
+    return false;
+  }
+
+  return true;
+}
+
+
+// atualizar status dos serviços do agendamento
+async function atualizarStatusServicosDoAgendamento(agendamentoId, novoStatus) {
+  const { error } = await supabaseClient
+    .from('agendamento_servicos')
+    .update({ status_servico: novoStatus })
+    .eq('agendamento_id', agendamentoId);
+
+  if (error) {
+    console.error('Erro ao atualizar status dos serviços:', error);
+    return false;
+  }
+
+  return true;
+}
+
+
+// filtrar histórico por período
+async function buscarHistoricoPorPeriodo(dataInicial, dataFinal) {
+  let query = supabaseClient
+    .from('agendamentos')
+    .select(`
+      id,
+      data,
+      horario,
+      status,
+      observacoes,
+      created_at,
+      clientes (
+        nome,
+        telefone,
+        email
+      )
+    `)
+    .order('data', { ascending: false });
+
+  if (dataInicial) {
+    query = query.gte('data', dataInicial);
+  }
+
+  if (dataFinal) {
+    query = query.lte('data', dataFinal);
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error('Erro ao filtrar histórico:', error);
+    return [];
+  }
+
+  return data;
+}
+
+
+// atualizar dados do agendamento
+async function atualizarAgendamento(agendamentoId, dados) {
+  const { error } = await supabaseClient
+    .from('agendamentos')
+    .update({
+      data: dados.data,
+      horario: dados.horario,
+      status: dados.status
+    })
+    .eq('id', agendamentoId);
+
+  if (error) {
+    console.error('Erro ao atualizar agendamento:', error);
+    return false;
+  }
+
+  return true;
+}
+
+
+// atualizar data e horário do agendamento
+async function atualizarDataHorarioAgendamento(agendamentoId, dados) {
+  const { error } = await supabaseClient
+    .from('agendamentos')
+    .update({
+      data: dados.data,
+      horario: dados.horario
+    })
+    .eq('id', agendamentoId);
+
+  if (error) {
+    console.error('Erro ao atualizar data e horário:', error);
+    return false;
+  }
+
+  return true;
+}
+
+
+// buscar horários ocupados por data
+async function buscarHorariosOcupados(data) {
+  const { data: agendamentos, error } = await supabaseClient
+    .from('agendamentos')
+    .select('horario, status')
+    .eq('data', data);
+
+  if (error) {
+    console.error('Erro ao buscar horários ocupados:', error);
+    return [];
+  }
+
+  // ignora cancelados
+  return agendamentos
+    .filter(item => item.status !== 'cancelado')
+    .map(item => item.horario);
+}
+
+
+// buscar agendamento da mesma semana
+async function buscarAgendamentoMesmaSemana(email, dataSelecionada) {
+  const cliente = await buscarClientePorEmail(email);
+
+  if (!cliente) return null;
+
+  const dataBase = new Date(`${dataSelecionada}T00:00:00`);
+  const diaDaSemana = dataBase.getDay();
+
+  // ajusta pra segunda
+  const diferencaParaSegunda = diaDaSemana === 0 ? -6 : 1 - diaDaSemana;
+
+  const inicioSemana = new Date(dataBase);
+  inicioSemana.setDate(dataBase.getDate() + diferencaParaSegunda);
+
+  const fimSemana = new Date(inicioSemana);
+  fimSemana.setDate(inicioSemana.getDate() + 6);
+
+  const inicio = inicioSemana.toISOString().split('T')[0];
+  const fim = fimSemana.toISOString().split('T')[0];
+
+  const { data, error } = await supabaseClient
+    .from('agendamentos')
+    .select('id, data, horario, status')
+    .eq('cliente_id', cliente.id)
+    .gte('data', inicio)
+    .lte('data', fim)
+    .neq('status', 'cancelado')
+    .order('data', { ascending: true })
+    .limit(1);
+
+  if (error) {
+    console.error('Erro ao buscar agendamento da mesma semana:', error);
+    return null;
+  }
+
+  return data.length ? data[0] : null;
+}
+
+
+// buscar métricas da semana
+async function buscarMetricasSemana() {
+  const hoje = new Date();
+
+  const primeiroDia = new Date(hoje);
+  const diaDaSemana = hoje.getDay();
+  const diferencaParaSegunda = diaDaSemana === 0 ? -6 : 1 - diaDaSemana;
+  primeiroDia.setDate(hoje.getDate() + diferencaParaSegunda);
+
+  const ultimoDia = new Date(primeiroDia);
+  ultimoDia.setDate(primeiroDia.getDate() + 6);
+
+  const dataInicial = primeiroDia.toISOString().split('T')[0];
+  const dataFinal = ultimoDia.toISOString().split('T')[0];
+
+  const { data: agendamentos, error } = await supabaseClient
+    .from('agendamentos')
+    .select('id, status, data')
+    .gte('data', dataInicial)
+    .lte('data', dataFinal);
+
+  if (error) {
+    console.error('Erro ao buscar métricas da semana:', error);
+    return null;
+  }
+
+  const idsAgendamentos = agendamentos.map(item => item.id);
+
+  let servicosSemana = [];
+
+  if (idsAgendamentos.length) {
+    const { data: servicosAgendados, error: erroServicos } = await supabaseClient
+      .from('agendamento_servicos')
+      .select(`
+        id,
+        servico_id,
+        servicos (
+          nome
+        )
+      `)
+      .in('agendamento_id', idsAgendamentos);
+
+    if (erroServicos) {
+      console.error('Erro ao buscar serviços da semana:', erroServicos);
+      return null;
+    }
+
+    servicosSemana = servicosAgendados;
+  }
+
+  return {
+    total: agendamentos.length,
+    pendentes: agendamentos.filter(item => item.status === 'pendente').length,
+    confirmados: agendamentos.filter(item => item.status === 'confirmado').length,
+    concluidos: agendamentos.filter(item => item.status === 'concluido').length,
+    cancelados: agendamentos.filter(item => item.status === 'cancelado').length,
+    servicosSemana
+  };
+}
+
+
+// login
+// faz login com email e senha
+async function fazerLogin(email, senha) {
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password: senha
+  });
+
+  if (error) {
+    console.error('Erro no login:', error);
+    return null;
+  }
+
+  return data;
+}
+
+
+// pega sessão atual (usuário logado)
+async function pegarSessao() {
+  const { data } = await supabaseClient.auth.getSession();
+  return data.session;
+}
+
+
+// logout
+async function fazerLogout() {
+  await supabaseClient.auth.signOut();
+}
+
+
 window.salvarNoBanco = salvarNoBanco;
 window.buscarHistorico = buscarHistorico;
 window.buscarServicosDoAgendamento = buscarServicosDoAgendamento;
 window.buscarAgendamentosPorEmail = buscarAgendamentosPorEmail;
+window.buscarAgendamentosDashboard = buscarAgendamentosDashboard;
+window.atualizarStatusAgendamento = atualizarStatusAgendamento;
+window.atualizarStatusServicosDoAgendamento = atualizarStatusServicosDoAgendamento;
+window.buscarHistoricoPorPeriodo = buscarHistoricoPorPeriodo;
+window.atualizarAgendamento = atualizarAgendamento;
+window.atualizarDataHorarioAgendamento = atualizarDataHorarioAgendamento;
+window.buscarHorariosOcupados = buscarHorariosOcupados;
+window.buscarAgendamentoMesmaSemana = buscarAgendamentoMesmaSemana;
+window.buscarMetricasSemana = buscarMetricasSemana;
+window.fazerLogin = fazerLogin;
+window.pegarSessao = pegarSessao;
+window.fazerLogout = fazerLogout;

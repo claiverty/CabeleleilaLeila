@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Cabeleleila Leila</title>
+
+  <link rel="stylesheet" href="./style/global.css" />
+  <link rel="stylesheet" href="./style/components.css" />
+  <link rel="stylesheet" href="./style/pages/login.css" />
+</head>
+<body>
+
+  <main class="login">
+    <div class="login-card card">
+      <h2 class="block-title">Área administrativa</h2>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input id="login-email" type="email" class="input" />
+      </div>
+
+      <div class="form-group">
+        <label>Senha</label>
+        <input id="login-senha" type="password" class="input" />
+      </div>
+
+      <button id="btn-login" class="btn btn-primary btn-full">
+        Entrar
+      </button>
+
+      <p id="mensagem-login" class="message-box"></p>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./script/supabase.js"></script>
+  <script src="./script/login.js"></script>
+</body>
+</html>

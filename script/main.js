@@ -15,6 +15,13 @@ const inputNome = document.querySelector('#nome');
 const inputTelefone = document.querySelector('#telefone');
 const inputEmail = document.querySelector('#email');
 
+// sugestão de mesma semana
+const boxSugestaoSemana = document.querySelector('#sugestao-semana');
+const textoSugestaoSemana = document.querySelector('#sugestao-texto');
+const botaoUsarDataSugerida = document.querySelector('#btn-usar-data-sugerida');
+
+let sugestaoSemanaAtual = null;
+
 
 // serviços
 const servicosInputs = document.querySelectorAll('input[name="servico"]');
@@ -35,6 +42,9 @@ const botoesHorario = document.querySelectorAll('.hour-btn');
 
 botoesHorario.forEach(btn => {
   btn.addEventListener('click', () => {
+    // não deixa clicar em horário desabilitado
+    if (btn.classList.contains('is-disabled')) return;
+
     botoesHorario.forEach(b => b.classList.remove('is-selected'));
 
     btn.classList.add('is-selected');
@@ -49,11 +59,25 @@ botoesHorario.forEach(btn => {
 // data
 const inputData = document.querySelector('input[type="date"]');
 
+// não deixa escolher data passada
 if (inputData) {
-  inputData.addEventListener('change', (e) => {
+  const hoje = new Date().toISOString().split('T')[0];
+  inputData.min = hoje;
+
+  inputData.addEventListener('change', async (e) => {
     estado.data = e.target.value;
 
+    await atualizarHorariosDisponiveis();
+    await verificarSugestaoMesmaSemana();
     atualizarResumo();
+  });
+}
+
+
+// email
+if (inputEmail) {
+  inputEmail.addEventListener('blur', async () => {
+    await verificarSugestaoMesmaSemana();
   });
 }
 
@@ -76,6 +100,107 @@ function atualizarResumo() {
 }
 
 
+// bloquear horários passados e ocupados
+async function atualizarHorariosDisponiveis() {
+  if (!inputData) return;
+
+  const hoje = new Date().toISOString().split('T')[0];
+  const dataSelecionada = inputData.value;
+
+  const agora = new Date();
+  const horaAtual = agora.getHours();
+  const minutoAtual = agora.getMinutes();
+
+  let horariosOcupados = [];
+
+  // busca horários já usados no banco
+  if (dataSelecionada) {
+    horariosOcupados = await buscarHorariosOcupados(dataSelecionada);
+  }
+
+  botoesHorario.forEach(btn => {
+    const horarioTexto = btn.textContent.trim();
+    const [horaBtn, minutoBtn] = horarioTexto.split(':').map(Number);
+
+    btn.classList.remove('is-disabled');
+
+    let desabilitar = false;
+
+    // se for hoje, bloqueia horários que já passaram
+    if (dataSelecionada === hoje) {
+      const horarioJaPassou =
+        horaBtn < horaAtual ||
+        (horaBtn === horaAtual && minutoBtn <= minutoAtual);
+
+      if (horarioJaPassou) {
+        desabilitar = true;
+      }
+    }
+
+    // bloqueia horários que já estão ocupados
+    if (horariosOcupados.includes(horarioTexto)) {
+      desabilitar = true;
+    }
+
+    if (desabilitar) {
+      btn.classList.add('is-disabled');
+
+      // se o horário selecionado ficou inválido, limpa ele
+      if (estado.horario === horarioTexto) {
+        estado.horario = null;
+      }
+    }
+  });
+
+  atualizarResumo();
+}
+
+
+// sugestão da mesma semana
+async function verificarSugestaoMesmaSemana() {
+  if (!inputEmail || !inputData || !boxSugestaoSemana || !textoSugestaoSemana) return;
+
+  const email = inputEmail.value.trim();
+  const dataSelecionada = inputData.value;
+
+  sugestaoSemanaAtual = null;
+  boxSugestaoSemana.classList.add('hidden');
+  textoSugestaoSemana.textContent = '';
+
+  if (!email || !dataSelecionada) return;
+
+  const agendamento = await buscarAgendamentoMesmaSemana(email, dataSelecionada);
+
+  if (!agendamento) return;
+
+  // não sugere se a data encontrada já for a mesma que a pessoa escolheu
+  if (agendamento.data === dataSelecionada) return;
+
+  sugestaoSemanaAtual = agendamento;
+
+  textoSugestaoSemana.textContent =
+    `Você já possui um agendamento nesta semana em ${agendamento.data} às ${agendamento.horario}. Deseja usar essa mesma data?`;
+
+  boxSugestaoSemana.classList.remove('hidden');
+}
+
+
+// botão da sugestão
+if (botaoUsarDataSugerida) {
+  botaoUsarDataSugerida.addEventListener('click', async () => {
+    if (!sugestaoSemanaAtual || !inputData) return;
+
+    inputData.value = sugestaoSemanaAtual.data;
+    estado.data = sugestaoSemanaAtual.data;
+
+    boxSugestaoSemana.classList.add('hidden');
+
+    await atualizarHorariosDisponiveis();
+    atualizarResumo();
+  });
+}
+
+
 // validar
 function validarFormulario() {
   const nome = inputNome.value.trim();
@@ -95,6 +220,28 @@ function validarFormulario() {
   if (!estado.horario) {
     mostrarMensagem('Escolha um horário.', 'error');
     return false;
+  }
+
+  const agora = new Date();
+
+  if (estado.data) {
+    const dataSelecionada = new Date(`${estado.data}T00:00:00`);
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+
+    if (dataSelecionada < hoje) {
+      mostrarMensagem('Não é possível agendar em uma data que já passou.', 'error');
+      return false;
+    }
+  }
+
+  if (estado.data && estado.horario) {
+    const dataHoraSelecionada = new Date(`${estado.data}T${estado.horario}:00`);
+
+    if (dataHoraSelecionada < agora) {
+      mostrarMensagem('Não é possível agendar em um horário que já passou.', 'error');
+      return false;
+    }
   }
 
   if (!nome) {
@@ -122,7 +269,10 @@ function mostrarMensagem(texto, tipo) {
 
   mensagem.textContent = texto;
   mensagem.classList.remove('success', 'error');
-  mensagem.classList.add(tipo);
+
+  if (tipo) {
+    mensagem.classList.add(tipo);
+  }
 }
 
 
@@ -162,10 +312,27 @@ if (botaoConfirmar) {
     estado.horario = null;
     estado.data = null;
 
-    servicosInputs.forEach(el => el.checked = false);
-    botoesHorario.forEach(b => b.classList.remove('is-selected'));
+    sugestaoSemanaAtual = null;
+
+    servicosInputs.forEach(el => {
+      el.checked = false;
+    });
+
+    botoesHorario.forEach(b => {
+      b.classList.remove('is-selected');
+      b.classList.remove('is-disabled');
+    });
+
     inputData.value = '';
+
+    if (boxSugestaoSemana) {
+      boxSugestaoSemana.classList.add('hidden');
+    }
 
     atualizarResumo();
   });
 }
+
+
+// organiza os horários quando a página carrega
+atualizarHorariosDisponiveis();
