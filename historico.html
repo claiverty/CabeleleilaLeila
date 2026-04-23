@@ -26,7 +26,16 @@
 
       <div class="header__actions">
         <a href="./dashboard.html" class="btn btn-light">Dashboard</a>
-        <a href="./index.html" class="btn btn-outline">Voltar</a>
+        <button id="btn-logout" class="btn btn-outline">Sair</button>
+      </div>
+
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Abrir menu">
+        ⋮
+      </button>
+
+      <div class="mobile-menu" id="mobile-menu">
+        <a href="./dashboard.html">Dashboard</a>
+        <button id="btn-logout" class="btn btn-outline">Sair</button>
       </div>
     </div>
   </header>
@@ -122,6 +131,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="./script/supabase.js"></script>
+  <script src="./script/menu.js"></script>
   <script src="./script/historico.js"></script>
 </body>
 </html>

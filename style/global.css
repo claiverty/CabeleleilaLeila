@@ -1,7 +1,5 @@
-/* =====================
-   cores e ajustes gerais
-   deixei as cores e medidas principais aqui pra facilitar mudanças depois
-===================== */
+/* cores e ajustes gerais
+   deixei as cores e medidas principais aqui pra facilitar mudanças depois */
 :root {
   --color-primary: #e91e63;
   --color-primary-dark: #c2185b;
@@ -93,6 +91,52 @@ img {
   gap: 16px;
 }
 
+/* botão do menu mobile */
+.menu-toggle {
+  display: none;
+  border: none;
+  background: transparent;
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--color-primary-dark);
+}
+
+/* menu mobile escondido por padrão */
+.mobile-menu {
+  display: none;
+  position: absolute;
+  top: 84px;
+  right: 20px;
+  min-width: 220px;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  padding: 10px;
+  z-index: 20;
+}
+
+/* quando estiver aberto */
+.mobile-menu.is-open {
+  display: grid;
+  gap: 8px;
+}
+
+/* links do menu */
+.mobile-menu a {
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: var(--color-text);
+  transition: var(--transition);
+}
+
+/* hover do menu */
+.mobile-menu a:hover {
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+}
+
 /* agrupa os botões do header */
 .header__actions {
   display: flex;
@@ -177,12 +221,30 @@ img {
 
 /* ajustes pra celular */
 @media (max-width: 768px) {
-  .section {
-    padding: 56px 0;
+    /* esconde os botões normais no mobile */
+  .header__actions {
+    display: none;
+  }
+
+  /* mostra o botão dos 3 pontinhos */
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* garante que o header sirva de referência pro menu */
+  .header {
+    position: sticky;
   }
 
   .header__content {
     min-height: 70px;
+    position: relative;
+  }
+  
+  .section {
+    padding: 56px 0;
   }
 
   .logo {
