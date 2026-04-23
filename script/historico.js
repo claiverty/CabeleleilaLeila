@@ -28,6 +28,7 @@ const btnLogout = document.querySelector('#btn-logout');
 const btnLogoutMobile = document.querySelector('#btn-logout-mobile');
 
 let agendamentoAtualId = null;
+let horarioOriginalEdicao = null;
 
 
 // mensagem
@@ -144,14 +145,42 @@ function abrirModalEditar(dados) {
   inputEditarData.value = dados.data;
   inputEditarHorario.value = dados.horario;
   inputEditarStatus.value = dados.status;
+  horarioOriginalEdicao = dados.horario;
+  atualizarHorariosModalHistorico();
 
   mostrarMensagemEdicao('', null);
   modalEditar.classList.remove('hidden');
+
 }
 
 function fecharModalEditar() {
   modalEditar.classList.add('hidden');
   agendamentoAtualId = null;
+  horarioOriginalEdicao = null;
+}
+
+// atualiza horários disponíveis no modal do admin
+async function atualizarHorariosModalHistorico() {
+  const dataSelecionada = inputEditarData.value;
+
+  if (!dataSelecionada) return;
+
+  const horariosOcupados = await buscarHorariosOcupados(dataSelecionada);
+
+  Array.from(inputEditarHorario.options).forEach(option => {
+    if (!option.value) return;
+
+    // libera tudo antes de verificar
+    option.disabled = false;
+
+    // bloqueia horários ocupados, mas mantém o horário atual do agendamento liberado
+    if (
+      horariosOcupados.includes(option.value) &&
+      option.value !== inputEditarHorario.value
+    ) {
+      option.disabled = true;
+    }
+  });
 }
 
 
@@ -180,12 +209,22 @@ async function salvarEdicao() {
 
   const dadosAtualizados = {
     data: inputEditarData.value,
-    horario: inputEditarHorario.value.trim(),
+    horario: inputEditarHorario.value,
     status: inputEditarStatus.value
   };
 
   if (!dadosAtualizados.data || !dadosAtualizados.horario) {
     mostrarMensagemEdicao('Preencha data e horário.', 'error');
+    return;
+  }
+
+  const horariosOcupados = await buscarHorariosOcupados(dadosAtualizados.data);
+
+  if (
+    horariosOcupados.includes(dadosAtualizados.horario) &&
+    dadosAtualizados.horario !== inputEditarHorario.value
+  ) {
+    mostrarMensagemEdicao('Esse horário já está ocupado. Escolha outro horário.', 'error');
     return;
   }
 
@@ -227,6 +266,10 @@ if (botaoSalvarEdicao) {
   botaoSalvarEdicao.addEventListener('click', salvarEdicao);
 }
 
+if (inputEditarData) {
+  inputEditarData.addEventListener('change', atualizarHorariosModalHistorico);
+}
+
 
 // logout
 if (btnLogout) {
@@ -242,5 +285,6 @@ if (btnLogoutMobile) {
     window.location.href = '/login.html';
   });
 }
+
 
 carregarHistorico();

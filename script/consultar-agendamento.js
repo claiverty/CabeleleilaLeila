@@ -103,6 +103,7 @@ function abrirModalConsulta(dados) {
 
   inputEditarConsultaData.value = dados.data;
   inputEditarConsultaHorario.value = dados.horario;
+  atualizarHorariosModalConsulta();
 
   mostrarMensagemEdicaoConsulta('', null);
   modalEditarConsulta.classList.remove('hidden');
@@ -174,10 +175,17 @@ async function salvarEdicaoConsulta() {
   if (!agendamentoConsultaAtualId) return;
 
   const novaData = inputEditarConsultaData.value;
-  const novoHorario = inputEditarConsultaHorario.value.trim();
+  const novoHorario = inputEditarConsultaHorario.value;
 
   if (!novaData || !novoHorario) {
     mostrarMensagemEdicaoConsulta('Preencha a nova data e o novo horário.', 'error');
+    return;
+  }
+
+  const horariosOcupados = await buscarHorariosOcupados(novaData);
+
+  if (horariosOcupados.includes(novoHorario)) {
+    mostrarMensagemEdicaoConsulta('Esse horário já está ocupado. Escolha outro horário.', 'error');
     return;
   }
 
@@ -207,6 +215,22 @@ async function salvarEdicaoConsulta() {
 }
 
 
+// atualiza os horários disponíveis no modal
+async function atualizarHorariosModalConsulta() {
+  const dataSelecionada = inputEditarConsultaData.value;
+
+  if (!dataSelecionada) return;
+
+  const horariosOcupados = await buscarHorariosOcupados(dataSelecionada);
+
+  Array.from(inputEditarConsultaHorario.options).forEach(option => {
+    if (!option.value) return;
+
+    option.disabled = horariosOcupados.includes(option.value);
+  });
+}
+
+
 // eventos
 if (botaoConsultar) {
   botaoConsultar.addEventListener('click', consultarAgendamentos);
@@ -218,4 +242,8 @@ if (botaoFecharModalConsulta) {
 
 if (botaoSalvarEdicaoConsulta) {
   botaoSalvarEdicaoConsulta.addEventListener('click', salvarEdicaoConsulta);
+}
+
+if (inputEditarConsultaData) {
+  inputEditarConsultaData.addEventListener('change', atualizarHorariosModalConsulta);
 }
