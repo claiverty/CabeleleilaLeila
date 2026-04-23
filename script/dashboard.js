@@ -18,6 +18,7 @@ const totalConcluidos = document.querySelector('#total-concluidos');
 const totalCancelados = document.querySelector('#total-cancelados');
 const rankingServicos = document.querySelector('#ranking-servicos');
 
+const btnLogoutMobile = document.querySelector('#btn-logout-mobile');
 
 // mensagem
 function mostrarMensagemDashboard(texto, tipo) {
@@ -197,7 +198,6 @@ function adicionarEventosAcoes() {
   });
 }
 
-carregarDashboard();
 
 const btnLogout = document.querySelector('#btn-logout');
 
@@ -207,3 +207,13 @@ if (btnLogout) {
     window.location.href = '/login.html';
   });
 }
+
+if (btnLogoutMobile) {
+  btnLogoutMobile.addEventListener('click', async () => {
+    await fazerLogout();
+    window.location.href = '/login.html';
+  });
+}
+
+
+carregarDashboard();

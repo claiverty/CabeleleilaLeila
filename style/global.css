@@ -94,12 +94,34 @@ img {
 /* botão do menu mobile */
 .menu-toggle {
   display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   border: none;
   background: transparent;
-  font-size: 1.8rem;
-  line-height: 1;
   cursor: pointer;
   color: var(--color-primary-dark);
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1;
+  padding: 8px 10px;
+  border-radius: 10px;
+  transition: var(--transition);
+}
+
+.menu-toggle:hover {
+  background: var(--color-primary-soft);
+}
+
+/* ícone dos 3 pontinhos */
+.menu-toggle__icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* texto do botão */
+.menu-toggle__text {
+  line-height: 1;
 }
 
 /* menu mobile escondido por padrão */
@@ -142,6 +164,25 @@ img {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+/* botão sair dentro do menu mobile */
+.mobile-menu__logout {
+  border: none;
+  background: transparent;
+  text-align: left;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: var(--color-text);
+  cursor: pointer;
+  font: inherit;
+  transition: var(--transition);
+}
+
+/* hover do botão sair */
+.mobile-menu__logout:hover {
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
 }
 
 /* nome principal do salão */

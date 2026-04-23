@@ -7,8 +7,6 @@
   }
 })();
 
-const btnLogout = document.querySelector('#btn-logout');
-
 const listaHistorico = document.querySelector('#historico-lista');
 const mensagemHistorico = document.querySelector('#historico-mensagem');
 
@@ -25,6 +23,9 @@ const inputEditarData = document.querySelector('#editar-data');
 const inputEditarHorario = document.querySelector('#editar-horario');
 const inputEditarStatus = document.querySelector('#editar-status');
 const mensagemEdicao = document.querySelector('#mensagem-edicao');
+
+const btnLogout = document.querySelector('#btn-logout');
+const btnLogoutMobile = document.querySelector('#btn-logout-mobile');
 
 let agendamentoAtualId = null;
 
@@ -230,6 +231,13 @@ if (botaoSalvarEdicao) {
 // logout
 if (btnLogout) {
   btnLogout.addEventListener('click', async () => {
+    await fazerLogout();
+    window.location.href = '/login.html';
+  });
+}
+
+if (btnLogoutMobile) {
+  btnLogoutMobile.addEventListener('click', async () => {
     await fazerLogout();
     window.location.href = '/login.html';
   });

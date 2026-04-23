@@ -1,3 +1,41 @@
+/* header do login */
+.login-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-border);
+  padding: 16px 20px;
+}
+
+/* botão voltar com ícone */
+.login-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--color-primary-dark);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* hover */
+.login-back:hover {
+  text-decoration: underline;
+}
+
+/* ícone */
+.login-back svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* logo pequena */
+.login-header-logo {
+  height: 36px;
+  width: auto;
+}
+
 /* tela inteira centralizada */
 .login {
   min-height: 100vh;
