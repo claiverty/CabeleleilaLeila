@@ -7,6 +7,8 @@
   }
 })();
 
+const btnLogout = document.querySelector('#btn-logout');
+
 const listaHistorico = document.querySelector('#historico-lista');
 const mensagemHistorico = document.querySelector('#historico-mensagem');
 
@@ -222,6 +224,15 @@ if (botaoFecharModal) {
 
 if (botaoSalvarEdicao) {
   botaoSalvarEdicao.addEventListener('click', salvarEdicao);
+}
+
+
+// logout
+if (btnLogout) {
+  btnLogout.addEventListener('click', async () => {
+    await fazerLogout();
+    window.location.href = '/login.html';
+  });
 }
 
 carregarHistorico();
