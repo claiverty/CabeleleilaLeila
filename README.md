@@ -170,25 +170,9 @@ Tabelas principais:
 
 ---
 
-## 📷 Prints do sistema
-
-EM ANDAMENTO
-
-* Tela de agendamento
-* Consulta de agendamento
-* Dashboard
-* Histórico
-
----
-
 ## 📹 Vídeo de demonstração
 
-EM ANDAMENTO
-
-* criação de agendamento
-* consulta
-* login
-* dashboard funcionando
+https://youtu.be/occ_nLg7R_U?si=q6BT_IitkUEi65WB
 
 ---
 
