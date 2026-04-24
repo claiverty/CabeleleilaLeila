@@ -132,8 +132,9 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 O banco e as tabelas estão no arquivo:
 
+```sql
 database.sql
-
+```
 Tabelas principais:
 
 * `clientes`
