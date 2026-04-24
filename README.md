@@ -35,6 +35,10 @@ Sistema web desenvolvido para gerenciamento de agendamentos de um salão de bele
 ### 👩‍💼 Área Administrativa
 
 * Login com autenticação (Supabase Auth)
+```
+Email: leila@email.com
+Senha: 12345678
+```
 * Visualização de todos os agendamentos
 * Edição completa de agendamentos (data, horário e status)
 * Controle de status
