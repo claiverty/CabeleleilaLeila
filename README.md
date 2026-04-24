@@ -63,39 +63,6 @@ Sistema web desenvolvido para gerenciamento de agendamentos de um salão de bele
 
 ---
 
-## 🧱 Estrutura do Projeto
-
-```plaintext
-📦 cabeleleila-leila
- ┣ 📂 assets
- ┃ ┗ 📂 img
- ┣ 📂 script
- ┃ ┣ 📜 main.js
- ┃ ┣ 📜 consultar-agendamento.js
- ┃ ┣ 📜 dashboard.js
- ┃ ┣ 📜 historico.js
- ┃ ┣ 📜 login.js
- ┃ ┗ 📜 supabase.js
- ┣ 📂 style
- ┃ ┣ 📂 pages
- ┃ ┃ ┣ 📜 agendamento.css
- ┃ ┃ ┣ 📜 consultar-agendamento.css
- ┃ ┃ ┣ 📜 dashboard.css
- ┃ ┃ ┣ 📜 historico.css
- ┃ ┃ ┣ 📜 home.css
- ┃ ┃ ┗ 📜 login.css
- ┃ ┣ 📜 components.css
- ┃ ┗ 📜 global.css
- ┣ 📜 index.html
- ┣ 📜 agendamento.html
- ┣ 📜 consultar-agendamento.html
- ┣ 📜 dashboard.html
- ┣ 📜 historico.html
- ┗ 📜 login.html
-```
-
----
-
 ## ⚙️ Como rodar o projeto
 
 ### 1. Clonar o repositório
